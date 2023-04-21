@@ -1,5 +1,6 @@
 package com.example.easytutomusicapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -7,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -18,7 +21,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     RecyclerView recyclerView;
     TextView noMusicTextView;
@@ -32,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         noMusicTextView = findViewById(R.id.no_songs_text);
 
-        if(checkPermission() == false){
-            requestPermission();
-            return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!checkMediaPermission()) {
+                requestMediaPermission();
+                return;
+            }
+        } else {
+            if (!checkPermission()) {
+                requestPermission();
+                return;
+            }
         }
 
         String[] projection = {
@@ -76,6 +86,25 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"READ PERMISSION IS REQUIRED,PLEASE ALLOW FROM SETTTINGS",Toast.LENGTH_SHORT).show();
         }else
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},123);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    boolean checkMediaPermission() {
+        int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_MEDIA_AUDIO);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    void requestMediaPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_MEDIA_AUDIO)) {
+            Toast.makeText(MainActivity.this, "READ PERMISSION IS REQUIRED,PLEASE ALLOW FROM SETTTINGS", Toast.LENGTH_SHORT).show();
+        } else
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_MEDIA_AUDIO}, 123);
     }
 
     @Override
