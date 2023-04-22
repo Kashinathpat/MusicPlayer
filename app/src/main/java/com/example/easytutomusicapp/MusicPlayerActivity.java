@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class MusicPlayerActivity extends AppCompatActivity {
@@ -125,7 +126,13 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
 
     public static String convertToMMSS(String duration) {
-        Long millis = Long.parseLong(duration);
-        return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1), TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+        long millis = 0L;
+        try {
+            millis = Long.parseLong(duration);
+        } catch (NumberFormatException ignored) {}
+        return String.format(Locale.US, "%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
     }
+
 }

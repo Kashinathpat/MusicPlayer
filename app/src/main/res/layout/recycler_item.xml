@@ -4,38 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginEnd="10dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginEnd="7dp"
     android:background="@drawable/round_back_10"
-    android:paddingStart="10sp"
-    android:paddingVertical="10sp">
+    android:paddingVertical="8sp"
+    android:paddingStart="10sp">
 
-        <ImageView
-            android:id="@+id/icon_view"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="10sp"
-            android:src="@drawable/music_icon"
-            android:contentDescription="Song Image" />
+    <ImageView
+        android:id="@+id/icon_view"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="10sp"
+        android:contentDescription="Song Image"
+        android:src="@drawable/music_icon" />
 
     <TextView
         android:id="@+id/music_title_text"
-        android:layout_width="273dp"
-        android:layout_height="45dp"
+        android:layout_width="275dp"
+        android:layout_height="42.5dp"
         android:layout_toEndOf="@+id/icon_view"
         android:textColor="#ffffff"
-        android:textSize="16sp"
+        android:textSize="15.8sp"
         android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/music_length_text"
-            android:layout_width="45sp"
-            android:layout_height="36sp"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10sp"
-            android:layout_centerVertical="true"
-            />
+    <TextView
+        android:id="@+id/music_length_text"
+        android:layout_width="50sp"
+        android:layout_height="36sp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="7sp"
+        android:background="@drawable/round_back_10"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5sp"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 </RelativeLayout>
